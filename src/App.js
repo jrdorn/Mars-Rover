@@ -1,12 +1,18 @@
 import "./App.css";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import RoverDetail from "./pages/RoverDetail/RoverDetail";
+import RoverListing from "./pages/RoverListing/RoverListing";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Mars Rover</h1>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RoverListing />} />
+        <Route path="detail" element={<RoverDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
