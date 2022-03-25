@@ -1,7 +1,39 @@
 #RoverDetail {
-  border: 5px solid blue;
+  display: grid;
+  grid-gap: 2em;
+  justify-content: center;
 }
 
+/* individual rover photos */
 .roverPhoto {
-  width: 30vw;
+  width: 15em;
+  margin: 1em;
+}
+
+/* container for rover photos */
+.photoList {
+  padding: 0;
+  width: 98vw;
+  list-style-type: none;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  justify-items: center;
+}
+
+/* button to return to main list of rovers */
+.returnButton {
+  width: 15em;
+  justify-self: center;
+  margin-bottom: 3em;
+}
+
+/* wrapper for MUI date picker formatting */
+.calendarContainer {
+  width: 15em;
+  justify-self: center;
+
+  margin-top: 1em;
+  background-color: white;
+  border-radius: 5px;
 }

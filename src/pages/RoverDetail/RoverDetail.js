@@ -12,16 +12,9 @@ import DatePicker from "@mui/lab/DatePicker";
 
 import key from "../../key.js";
 
-/**
-TODO:
-
-
-  Styles
-
-*/
-
-//
+//render fetched Mars photos
 let FetchedPhotos = ({ photos }) => {
+  // if no photos are found on a selected day, display error message
   if (photos.length === 0) {
     return (
       <div>
@@ -31,7 +24,7 @@ let FetchedPhotos = ({ photos }) => {
     );
   } else {
     return (
-      <ul>
+      <ul className={styles.photoList}>
         {photos.map((photo) => (
           <li key={photo.id}>
             <img alt="" src={photo.img_src} className={styles.roverPhoto} />
@@ -42,8 +35,16 @@ let FetchedPhotos = ({ photos }) => {
   }
 };
 
-//
+//date picker
 let Calendar = ({ date, setDate }) => {
+  /*
+    This page has two separate date hooks
+    
+    Calendar uses rawDate, with a JavaScript date object for the MUI DatePicker
+
+    RoverDetail uses date, with a formatted string for API calls
+
+  */
   const [rawDate, setRawDate] = useState(Date.now());
 
   return (
@@ -51,8 +52,9 @@ let Calendar = ({ date, setDate }) => {
       <DatePicker
         value={rawDate}
         onChange={(newDate) => {
-          setRawDate(newDate);
+          setRawDate(newDate); //update Calendar date
 
+          //format date for API requests
           let formatDate =
             newDate.getFullYear() +
             "-" +
@@ -60,7 +62,7 @@ let Calendar = ({ date, setDate }) => {
             "-" +
             newDate.getDate();
 
-          setDate(formatDate);
+          setDate(formatDate); //update API date
         }}
         renderInput={(params) => <TextField {...params} />}
       />
@@ -70,11 +72,10 @@ let Calendar = ({ date, setDate }) => {
 
 //
 function RoverDetail() {
-  //
-  const [photos, setPhotos] = useState([]); //
-  const [loading, setLoading] = useState(true); //
-  //
-  const params = useParams();
+  const [photos, setPhotos] = useState([]); //store json of Mars photos
+  const [loading, setLoading] = useState(true); //display loading message while API request has not returned
+
+  const params = useParams(); //get rover id from React Router
 
   let initDate = new Date(); // initialize new Date object with current date
   initDate =
@@ -83,9 +84,10 @@ function RoverDetail() {
     initDate.getMonth() +
     "-" +
     initDate.getDate();
-  const [date, setDate] = useState(initDate);
 
-  //
+  const [date, setDate] = useState(initDate); //date hook with formatted date
+
+  //make NASA API call
   useEffect(() => {
     fetch(
       `https://api.nasa.gov/mars-photos/api/v1/rovers/${params.name}/photos?earth_date=${date}&api_key=${key}`
@@ -104,11 +106,19 @@ function RoverDetail() {
   return (
     <div id={styles.RoverDetail}>
       <h1>{params.name}</h1>
-      <Button component={Link} to="/">
+      <Button
+        variant="outlined"
+        size="large"
+        className={styles.returnButton}
+        component={Link}
+        to="/"
+      >
         Return to rover list
       </Button>
 
-      <Calendar date={date} setDate={setDate} />
+      <div className={styles.calendarContainer}>
+        <Calendar date={date} setDate={setDate} />
+      </div>
 
       {loading ? "Loading photos..." : <FetchedPhotos photos={photos} />}
     </div>

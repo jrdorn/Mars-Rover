@@ -1,3 +1,64 @@
 #RoverListing {
-  border: 5px solid red;
+  display: grid;
+}
+
+/* page title */
+h1 {
+  justify-self: center;
+}
+
+/* list of rovers */
+.roverList {
+  padding: 0;
+  margin-top: 3em;
+  list-style-type: none;
+
+  display: grid;
+  grid-gap: 2em;
+  justify-items: center;
+}
+@media (min-width: 780px) {
+  .roverList {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+@media (min-width: 980px) {
+  .roverList {
+    margin-left: 20vw;
+    margin-right: 20vw;
+  }
+}
+
+/* container for individual rover info */
+.roverBox {
+  border: 1px solid #87909a;
+  border-radius: 5px;
+  background-color: #0a1333;
+
+  width: 15em;
+  height: 20em;
+  padding: 2em;
+  padding-top: 0;
+
+  display: grid;
+}
+
+/* card element styles */
+.cardFont {
+  color: #87909a;
+  padding-top: 0.3em;
+}
+.cardHeader {
+  color: #167fff;
+}
+
+/* dropdown list of rover cameras */
+.cameraList {
+  font-size: 0.8rem;
+  color: white;
+  border: none;
+  background: #167fff;
+  border-radius: 5px;
+  margin-left: 0.3em;
 }
