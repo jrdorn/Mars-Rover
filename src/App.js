@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<RoverListing />} />
-        <Route path="detail" element={<RoverDetail />} />
+        <Route path="detail/:name" element={<RoverDetail />} />
       </Routes>
     </BrowserRouter>
   );
